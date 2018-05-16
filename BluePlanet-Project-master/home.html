@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/home.css">
+    <link rel="stylesheet" href="styles/menu.css">
+    <link rel="icon" href="https://i2.wp.com/blueplanetfoundation.org/wp-content/uploads/2016/10/favicon-152.png?fit=32%2C32&amp;ssl=1" sizes="32x32">
+    <link rel="icon" href="https://i2.wp.com/blueplanetfoundation.org/wp-content/uploads/2016/10/favicon-152.png?fit=152%2C152&amp;ssl=1" sizes="192x192">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Infinite Power</title>
+</head>
+
+<body id="container">
+    <!-- <div id="mapBackground"></div> -->
+    <div id="background">
+        <div id="soundEffects">
+            <audio id="goodClick" src="sounds/clickGood.mp3"></audio>
+            <audio id="badClick" src="sounds/clickBad.mp3"></audio>
+            <audio id="gameWin" src="sounds/gameWin.mp3"></audio>
+            <audio id="gameLose" src="sounds/gameLose.mp3"></audio>
+            <audio id="quizCorrect" src="sounds/quizCorrect.mp3"></audio>
+            <audio id="quizWrong" src="sounds/quizWrong.mp3"></audio>
+            <audio id="quizMusic" src="sounds/quizMusic.mp3"></audio>
+            <audio id="infiniteWin" src="sounds/infiniteWin.mp3"></audio>
+            <audio id="menuClick" src="sounds/menuClick.wav"></audio>
+        </div>
+        <div id="gameMusic">
+            <audio id="menuSound" src="sounds/beforeStart.mp3"></audio>
+            <audio id="duringGame" src="sounds/gameStart.mp3"></audio>
+        </div>
+        <div id="backing"></div>
+        <div id="zoomAnimation"></div>
+        <div id="map"></div>
+    </div>
+    <div id="timerFail" class="animated bounceInUp">
+        <h1 id="youFailed">YOU RAN OUT OF TIME</h1>
+        <button class="restart" onclick="restart()">RESTART</button>
+        <div class="statGrid">
+            <div class="statContainer">
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL BUBBLES CLICKED</h1>
+                    <h2 class="totalEnergyGen">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL MWh GENERATED</h1>
+                    <h2 class="renewableGenerated" style="color: #97ca3d">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>Lbs. of CO2 GENERATED</h1>
+                    <h2 class="pollutionGenerated" style="color: #c23b22">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL TIME ELAPSED</h1>
+                    <h2 class="timeElapsed">0 seconds</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>LEVELS PASSED</h1>
+                    <h2 class="levelsPassed">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>RENEWABLE BUBBLES CLICKED</h1>
+                    <h2 class="goodClicked" style="color: #97ca3d">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>NON-RENEWABLE BUBBLES CLICKED</h1>
+                    <h2 class="badClicked" style="color: #c23b22">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="gameFail" class="animated bounceInUp">
+        <h1 id="youFailed">YOU HAVE POLLUTED THE WORLD</h1>
+        <button class="restart" onclick="restart()">RESTART</button>
+        <div class="statGrid">
+            <div class="statContainer">
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL BUBBLES CLICKED</h1>
+                    <h2 class="totalEnergyGen">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL MWh GENERATED</h1>
+                    <h2 class="renewableGenerated" style="color: #97ca3d">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>Lbs. of CO2 GENERATED</h1>
+                    <h2 class="pollutionGenerated" style="color: #c23b22">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>TOTAL TIME ELAPSED</h1>
+                    <h2 class="timeElapsed">0 seconds</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>LEVELS PASSED</h1>
+                    <h2 class="levelsPassed">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>RENEWABLE BUBBLES CLICKED</h1>
+                    <h2 class="goodClicked" style="color: #97ca3d">0</h2>
+                </div>
+                <div class="statBox" style="width: 95%">
+                    <h1>NON-RENEWABLE BUBBLES CLICKED</h1>
+                    <h2 class="badClicked" style="color: #c23b22">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="levelSuccessPopUp" class="animated bounceInUp">
+        <h1 id="youPassed"></h1>
+        <div id="level1Quiz">
+            <div class="quizContainer">
+                <h1 class="upgradeText">ANSWER CORRECTLY FOR AN UPGRADE</h1>
+                <h1 style="color: #97ca3d">Which of the following is a renewable energy source?</h1>
+                <label class="radioContainer wrongLevel1">
+                <p>Coal Power Plants</p>
+                <input type="radio" name="radio" value="a">
+                <span class="checkmark"><p>Coal Power Plants</p></span>
+              </label>
+                <label class="radioContainer wrongLevel1">
+                <p>Oil Rigs</p>
+                <input type="radio" name="radio" value="b">
+                <span class="checkmark"><p>Oil Rigs</p></span>
+              </label>
+                <label class="radioContainer wrongLevel1">
+                <p>Fossil Fuels</p>
+                <input type="radio" name="radio" value="c">
+                <span class="checkmark"><p>Fossil Fuels</p></span>
+              </label>
+                <label id="correctLevel1" class="radioContainer">
+                <p>Solar Power</p>
+                <input type="radio" name="radio" value="d">
+                <span class="checkmark"><p>Solar Power</p></span>
+              </label>
+                <button class="submitAnswer" onclick="submitAnswer()">SUBMIT ANSWER</button>
+            </div>
+        </div>
+
+        <div id="level2Quiz">
+            <div class="quizContainer">
+                <h1 class="upgradeText">ANSWER CORRECTLY FOR AN UPGRADE</h1>
+                <h1 style="color: #97ca3d">Global warming focuses on an increase in the level of which gas in the atmosphere?</h1>
+                <label id="correctLevel2" class="radioContainer">
+                <p>Carbon Dioxide</p>
+                <input type="radio" name="radio" value="e">
+                <span class="checkmark"><p>Carbon Dioxide</p></span>
+              </label>
+                <label class="radioContainer wrongLevel2">
+                <p>Sulfur Dioxide</p>
+                <input type="radio" name="radio" value="f">
+                <span class="checkmark"><p>Sulfur Dioxide</p></span>
+              </label>
+                <label class="radioContainer wrongLevel2">
+                <p>Nitrous Oxide</p>
+                <input type="radio" name="radio" value="g">
+                <span class="checkmark"><p>Nitrous Oxide</p></span>
+              </label>
+                <label class="radioContainer wrongLevel2">
+                <p>Ozone</p>
+                <input type="radio" name="radio" value="h">
+                <span class="checkmark"><p>Ozone</p></span>
+              </label>
+                <button class="submitAnswer" onclick="submitAnswer()">SUBMIT ANSWER</button>
+            </div>
+        </div>
+
+        <div id="level3Quiz">
+            <div class="quizContainer">
+                <h1 class="upgradeText">ANSWER CORRECTLY FOR AN UPGRADE</h1>
+                <h1 style="color: #97ca3d">Where does Hawaii's renewable energy mostly come from?</h1>
+                <label class="radioContainer wrongLevel3">
+                <p>Hydro</p>
+                <input type="radio" name="radio" value="i">
+                <span class="checkmark"><p>Hydro</p></span>
+              </label>
+                <label class="radioContainer wrongLevel3">
+                <p>Geothermal</p>
+                <input type="radio" name="radio" value="j">
+                <span class="checkmark"><p>Geothermal</p></span>
+              </label>
+                <label id="correctLevel3" class="radioContainer">
+                <p>Solar and Wind</p>
+                <input type="radio" name="radio" value="k">
+                <span class="checkmark"><p>Solar and Wind</p></span>
+              </label>
+                <label class="radioContainer wrongLevel3">
+                <p>Biofuel</p>
+                <input type="radio" name="radio" value="l">
+                <span class="checkmark"><p>Biofuel</p></span>
+              </label>
+                <button class="submitAnswer" onclick="submitAnswer()">SUBMIT ANSWER</button>
+            </div>
+        </div>
+
+        <div id="level4Quiz">
+            <div class="quizContainer">
+                <h1 class="upgradeText">ANSWER CORRECTLY FOR AN UPGRADE</h1>
+                <h1 style="color: #97ca3d">What sector in Hawaii consumes the most energy?</h1>
+                <label id="choiceA" class="radioContainer wrongLevel4">
+                <p>Commercial</p>
+                <input type="radio" name="radio" value="m">
+                <span class="checkmark"><p>Commercial</p></span>
+              </label>
+                <label class="radioContainer wrongLevel4">
+                <p>Residential</p>
+                <input type="radio" name="radio" value="n">
+                <span class="checkmark"><p>Residential</p></span>
+              </label>
+                <label id="correctLevel4" class="radioContainer">
+                <p>Transportation</p>
+                <input type="radio" name="radio" value="o">
+                <span class="checkmark"><p>Transportation</p></span>
+              </label>
+                <label class="radioContainer wrongLevel4">
+                <p>Industrial</p>
+                <input type="radio" name="radio" value="p">
+                <span class="checkmark"><p>Industrial</p></span>
+              </label>
+                <button class="submitAnswer" onclick="submitAnswer()">SUBMIT ANSWER</button>
+            </div>
+        </div>
+
+        <div id="upgradeCongrats" class="animated bounce">
+            <h1>CONGRATS YOU'VE EARNED AN UPGRADE:</h1>
+            <h2 id="upgradeReward"></h2>
+        </div>
+
+
+        <button id="levelContinue">CONTINUE TO THE NEXT LEVEL</button>
+        <button id="upgradeAndContinue">CHOOSE UPGRADE AND CONTINUE</button>
+
+        <div id="infiniteStatistics">
+            <div class="statGrid">
+                <div class="statContainer">
+                    <div class="statBox" style="width: 95%">
+                        <h1>TOTAL BUBBLES CLICKED</h1>
+                        <h2 class="totalEnergyGen">0</h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>TOTAL MWh GENERATED</h1>
+                        <h2 class="renewableGenerated" style="color: #97ca3d">0</h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>Lbs. of CO2 GENERATED</h1>
+                        <h2 class="pollutionGenerated" style="color: #c23b22">0</h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>TOTAL TIME ELAPSED</h1>
+                        <h2 class="timeElapsed">0 seconds</h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>LEVELS PASSED</h1>
+                        <h2 class="levelsPassed">0</h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>RENEWABLE BUBBLES CLICKED</h1>
+                        <h2 class="goodClicked" style="color: #97ca3d"></h2>
+                    </div>
+                    <div class="statBox" style="width: 95%">
+                        <h1>NON-RENEWABLE BUBBLES CLICKED</h1>
+                        <h2 class="badClicked" style="color: #c23b22"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="notMap">
+        <div id="rightContainer">
+            <div id="roundBarsContainer">
+                <div id="roundsBox">
+                    <div id="timer"></div>
+                    <div id="round"></div>
+                </div>
+                <div id="renewableProgressBar">
+                    <div class="barBackground goodBarBackground">
+                        <p class="title energyPercent">ENERGY:</p>
+                        <div id="renewable-bar">
+                            <div id="renewableProgress"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="nonRenewableProgressBar">
+                    <div class="barBackground badBarBackground">
+                        <p class="title">POLLUTION:</p>
+                        <div id="nonRenewable-bar">
+                            <div id="nonRenewableProgress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="navbar">
+            <div id="startButton" class="animated infinite rubberBand">START</div>
+            <div id="pauseButton">PAUSE</div>
+            <div id="resumeButton">RESUME</div>
+            <div id="gameTitle">INFINITE POWER</div>
+            <div id="settingsInfoButton">
+                <div id="informationButton">INFORMATION</div>
+                <div id="settingsButton">SETTINGS</div>
+            </div>
+        </div>
+
+        <div id="settingsMenu" class="animated bounceIn">
+            <a class="boxClose menuClose"></a>
+            <h1>SETTINGS</h1>
+            <div class="slidecontainer">
+                <p>SOUND EFFECTS</p>
+                <input type="range" min="0" max="100" value="100" class="slider" id="effectSlider">
+
+                <p>MUSIC</p>
+                <input type="range" min="0" max="100" value="100" class="slider" id="musicSlider">
+            </div>
+        </div>
+
+        <div id="credits" class="animated bounceIn">
+            <a class="boxClose menuClose"></a>
+            <h1>CREDITS</h1>
+            <div class="cardContainer">
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="mark" src="Mark.jpg">
+                        </a>
+                        <h1>MARK DEMESILLO</h1>
+                        <h2>Tall Guy</h2>
+                    </header>
+                </aside>
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="kyle" src="Kyle.jpg">
+                        </a>
+                        <h1>KYLE LINGAT</h1>
+                        <h2>JavaScript Deficient</h2>
+                    </header>
+                </aside>
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="dylan" src="Dylan.jpg">
+                        </a>
+                        <h1>DYLAN TUCKER</h1>
+                        <h2>At Track Meet</h2>
+                    </header>
+                </aside>
+            </div>
+        </div>
+
+        <div id="gamePaused" class="animated bounceIn">
+            <h1 class="pauseOrResume"></h1>
+            <p id="randomFact"></p>
+        </div>
+
+        <div id="informationMenu" class="animated bounceIn">
+            <a class="boxClose menuClose"></a>
+            <div class="mySlides2 fade">
+                <div class="numbertext">1 / 4</div>
+                <div class="slideTitle">
+                    <h1>HOW TO PLAY</h1>
+                </div>
+                <div class="howToGrid">
+                    <div class="howToBox">
+                        <h2>YOUR GOAL IS TO FILL UP <span class="bold">ENERGY BAR</span> TO REACH THE NEXT LEVEL</h2>
+                        <h2>YOUR <span class="bold">ENERGY BAR</span> RESETS EVERY LEVEL AND YOU HAVE TO FILL IT UP AGAIN</h2>
+                        <h2>DON'T FILL UP YOUR <span class="redText">POLLUTION BAR</span> OR YOU'LL AUTOMATICALLY LOSE</h2>
+                        <h2>YOUR <span class="redText">POLLUTION BAR</span> DECREASES A LITTLE AFTER EVERY LEVEL</h2>
+                    </div>
+                    <div class="howToBox">
+                        <h2>CLICK <span class="bold">RENEWABLE ENERGY BUBBLES</span> TO FILL UP YOUR <span class="bold">ENERGY BAR</span></h2>
+                        <h2>DON'T CLICK <span class="redText">POLLUTION BUBBLES</span> OR YOU'LL FILL UP YOUR <span class="redText">POLLUTION BAR</span></h2>
+                        <h2>CLICKING ON <span class="redText">POLLUTION BUBBLES</span> FILLS UP YOUR <span class="bold">ENERGY BAR</span> BY A SMALL AMOUNT</h2>
+                    </div>
+                    <div class="howToBox">
+                        <h2>ANSWER QUIZZES CORRECTLY AFTER EVERY LEVEL FOR A BENEFICIAL UPGRADE</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mySlides2 fade">
+                <div class="numbertext">2 / 4</div>
+                <div class="slideTitle">
+                    <h1>STATISTICS</h1>
+                </div>
+                <div class="statGrid">
+                    <div class="statContainer">
+                        <div class="statBox">
+                            <h1>TOTAL BUBBLES CLICKED</h1>
+                            <h2 class="totalEnergyGen">0</h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>TOTAL MWh GENERATED</h1>
+                            <h2 class="renewableGenerated" style="color: #97ca3d">0</h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>Lbs. of CO2 GENERATED</h1>
+                            <h2 class="pollutionGenerated" style="color: #c23b22">0</h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>TOTAL TIME ELAPSED</h1>
+                            <h2 class="timeElapsed">0 seconds</h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>LEVELS PASSED</h1>
+                            <h2 class="levelsPassed">0</h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>RENEWABLE BUBBLES CLICKED</h1>
+                            <h2 class="goodClicked" style="color: #97ca3d"></h2>
+                        </div>
+                        <div class="statBox">
+                            <h1>NON-RENEWABLE BUBBLES CLICKED</h1>
+                            <h2 class="badClicked" style="color: #c23b22"></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mySlides2 fade">
+                <div class="numbertext">3 / 4</div>
+                <div class="slideTitle">
+                    <h1>DID YOU KNOW?</h1>
+                </div>
+                <div class="infoOverflow">
+                    <div class="infoGrid">
+                        <div class="infoContainer">
+                            <div class="infoBox">
+                                <h1>A gigawatt-hour is a unit of electrical energy equal to one thousand megawatt hours, one million kilowatt-hours, or one billion watt-hours</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In 2015, Hawaii imported 91% of the energy it consumed, mostly as petroleum.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In 2016, Hawaii had the highest electricity prices in the nation; it is the first state to set a legal deadline for producing 100% of its electricity from renewable energy sources, a target it plans to achieve by 2045.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Hawaii is one of seven states with utility-scale generation from geothermal energy. In 2016, 19% of Hawaii's renewable net electricity generation came from geothermal energy.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In 2016, Hawaii generated more solar electricity per capita from distributed facilities than any other state, and solar energy from both utility-scale and distributed resources generated 38% of Hawaii's net generation from
+                                    renewable resources</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>With its mild tropical climate, Hawaii had the fourth-lowest per capita energy use in the nation in 2015. The transportation sector accounted for more than half (51%) of Hawaii's total energy demand in 2015, led by jet
+                                    fuel use.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Electricity must be used, transmitted, or stored at the instant it is produced. If renewable energy is not used when it’s produced, it is usually curtailed.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Hawaii has historically depended on imported oil for most of its energy needs for many reasons. Unlike mainland states, Hawaii does not have access to fuel sources such large rivers to produce hydropower. The islands do
+                                    not have indigenous oil, natural gas or coal resources. Such fuels need to be imported. Petroleum is relatively easy to transport and store; it can be easily refined to create fuel for a full spectrum of air, water
+                                    and ground transportation, electricity and other uses.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Transportation consumes 62% of Hawaii's imported oil, while electricity generation uses about 33%. Other commercial and industrial uses account for the remaining 5%.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Most petroleum products used in Hawaii are either refined locally from imported crude oil or brought in their refined state by Hawaii's two local oil refineries-Chevron and Tesoro.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>The majority of the fuel oil used by Hawaiian Electric utilities is residual low sulfur fuel oil that is left over after the lighter petroleum products, such as gasoline and jet fuel, are refined from crude oil.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Oil prices are affected by global supply and demand. Hawaii imports oil mainly from Southeast Asia and the Middle East, but prices are influenced by the actions of the oil cartel, OPEC, with many members in the Middle East.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>The most powerful hydroelectric project in the world is China’s Three Gorges Dam. The controversial and enormous power plant brings power to millions of Chinese villagers and will generate more than 22,000 megawatts from
+                                    six generators.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In 2011, coal was the second highest cause of energy-related carbon emissions. Petroleum ranked first with 42%, followed by coal with 34% and natural gas emitted 24% of the energy-related carbon dioxide.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>With the energy efficiency America is striving for, the US carbon dioxide emissions would decrease by 4 billion metric tons.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>The use of coal emits sulfur dioxide, nitrogen oxide, heavy metals, carbon dioxide, and acid gases which are linked to acid rain, smog, global warming and health issues.
+                                </h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In the US, electricity plants use more than 900 million short tons of coal to produce 40% of America’s electricity every year.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>In 2015, approximately 23.4% of Hawaii’s electricity was generated from renewable sources, where the primary sources were solar PV, wind, and biomass.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Biomass is plant and animal matter, including energy crops, wood, grasses, algae, vegetable oils, and agricultural and municipal wastes. Bioenergy production potential in Hawaii depends on the availability of land and feedstock;
+                                    CO2 sources (for algae); markets and values for primary products (electricity, fuels) and by-products (animal feed); and overall revenues compared to costs.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>“Bioenergy” includes both electricity generation and fuel production from biomass.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>“Biofuel” sometimes is used interchangeably with bioenergy, however biofuels is more commonly used specifically to describe liquid bioenergy fuels. Biofuels are a renewable energy source that can be stored and transported
+                                    in a manner similar to fossil fuels, can often be used in existing equipment and be blended with petroleum fuels. One ton of biomass replaces approximately one barrel of oil.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>An electric vehicle (EV) uses electricity in place of gasoline, reducing the need for petroleum-based fuel. Since EVs can use electricity produced from renewable resources available in Hawaii (i.e. sun, wind, hydropower,
+                                    ocean energy, geothermal energy), the transition from gasoline fueled vehicles to EVs supports Hawaii’s energy independence goals.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Hydroelectricity was the first renewable energy technology used to generate electricity in Hawaii; plants date back to 1888. Early hydroelectric facilities were located in Honolulu and Hilo, and on the island of Kauai.
+                                    During the sugar era, additional hydroelectric plants were installed to help power sugar operations</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Surrounded by the Pacific Ocean, Hawaii is rich in ocean renewable energy resources. Ocean energy includes both hydrokinetic and thermal resources.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Residential and commercial building energy management systems may become even more effective when connected to a utility-wide smart grid.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Over 500,000 housing units and condos, and tens of thousands of commercial and government buildings statewide, can take advantage of smart grid technologies.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Over $57 million has been invested in Smart Grid demonstration projects in Hawaii.</h1>
+                            </div>
+                            <div class="infoBox">
+                                <h1>Wind energy is Hawaii’s second most utilized renewable energy resource, accounting for about 28% of Hawaii’s total renewable energy portfolio in 2015, which equates to 6.5% of the total energy sold and distributed by Hawaii’s
+                                    electric utilities in 2015.</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mySlides2 fade">
+                <div class="numbertext">4 / 4</div>
+                <div class="slideTitle">
+                    <h1>CREDITS</h1>
+                </div>
+                <div class="cardContainer">
+                    <aside class="profile-card">
+                        <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                        <header>
+                            <img class="mark" src="Mark.jpg">
+                            </a>
+                            <h1>MARK DEMESILLO</h1>
+                            <h2>Tall Guy</h2>
+                        </header>
+                    </aside>
+                    <aside class="profile-card">
+                        <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                        <header>
+                            <img class="kyle" src="Kyle.jpg">
+                            </a>
+                            <h1>KYLE LINGAT</h1>
+                            <h2>JavaScript Deficient</h2>
+                        </header>
+                    </aside>
+                    <aside class="profile-card">
+                        <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                        <header>
+                            <img class="dylan" src="Dylan.jpg">
+                            </a>
+                            <h1>DYLAN TUCKER</h1>
+                            <h2>At Track Meet</h2>
+                        </header>
+                    </aside>
+                </div>
+            </div>
+
+            <a class="prev" onclick="plusInfoSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusInfoSlides(1)">&#10095;</a>
+            <div class="dotContainer">
+                <span class="dot2" onclick="currentInfoSlide(1)"></span>
+                <span class="dot2" onclick="currentInfoSlide(2)"></span>
+                <span class="dot2" onclick="currentInfoSlide(3)"></span>
+                <span class="dot2" onclick="currentInfoSlide(4)"></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="beforeStart" style="display:block">
+        <!--https://www.w3schools.com/howto/howto_js_slideshow.asp -->
+        <div class="mySlides1 fade">
+            <div class="numbertext">1 / 3</div>
+            <div class="slideTitle">
+                <h1 class="titleHeader">WELCOME TO INFINITE POWER</h1>
+            </div>
+            <div id="welcomeContainer">
+                <h2>After being pitched by the <span class="bold">BluePlanet Foundation</span> about the <span class="bold">lack of awareness of clean energy use</span>, 3 high school students have been tasked to create an app</span> of promoting clean
+                    energy use</h2>
+                <h2><span class="bold">INFINITE POWER</span> is an educational <span class="bold">reflex based game</span> that spreads awareness of the <span class="redText">dangers </span> of <span class="bold">fossil fuel use</span> and promotes
+                    <span class="bold">clean energy use in Hawaii</span>
+                </h2>
+                <img id="bpimg" src="styles/blueplanetad.png" alt="">
+            </div>
+        </div>
+
+        <div class="mySlides1 fade">
+            <div class="numbertext">2 / 3</div>
+            <div class="slideTitle">
+                <h1 class="titleHeader">HOW TO PLAY</h1>
+            </div>
+            <div class="howToGrid">
+                <div class="howToBox">
+                    <h2>YOUR GOAL IS TO FILL UP <span class="bold">ENERGY BAR</span> TO REACH THE NEXT LEVEL</h2>
+                    <h2>YOUR <span class="bold">ENERGY BAR</span> RESETS EVERY LEVEL AND YOU HAVE TO FILL IT UP AGAIN</h2>
+                    <h2>DON'T FILL UP YOUR <span class="redText">POLLUTION BAR</span> OR YOU'LL AUTOMATICALLY LOSE</h2>
+                    <h2>YOUR <span class="redText">POLLUTION BAR</span> DECREASES A LITTLE AFTER EVERY LEVEL</h2>
+                </div>
+                <div class="howToBox">
+                    <h2>CLICK <span class="bold">RENEWABLE ENERGY BUBBLES</span> TO FILL UP YOUR <span class="bold">ENERGY BAR</span></h2>
+                    <h2>DON'T CLICK <span class="redText">POLLUTION BUBBLES</span> OR YOU'LL FILL UP YOUR <span class="redText">POLLUTION BAR</span></h2>
+                    <h2>CLICKING ON <span class="redText">POLLUTION BUBBLES</span> FILLS UP YOUR <span class="bold">ENERGY BAR</span> BY A SMALL AMOUNT</h2>
+                </div>
+                <div class="howToBox">
+                    <h2>ANSWER QUIZZES CORRECTLY AFTER EVERY LEVEL FOR A BENEFICIAL UPGRADE</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="mySlides1 fade">
+            <div class="numbertext">3 / 3</div>
+            <div class="slideTitle">
+                <h1 class="titleHeader">CREDITS</h1>
+            </div>
+            <div class="cardContainer">
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="mark" src="Mark.jpg">
+                        </a>
+                        <h1>MARK DEMESILLO</h1>
+                        <h2>Tall Guy</h2>
+                    </header>
+                </aside>
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="kyle" src="Kyle.jpg">
+                        </a>
+                        <h1>KYLE LINGAT</h1>
+                        <h2>JavaScript Deficient</h2>
+                    </header>
+                </aside>
+                <aside class="profile-card">
+                    <!--https://codepen.io/darkosxrc/pen/ZGRQbv-->
+                    <header>
+                        <img class="dylan" src="Dylan.jpg">
+                        </a>
+                        <h1>DYLAN TUCKER</h1>
+                        <h2>At Track Meet</h2>
+                    </header>
+                </aside>
+            </div>
+            <button id="startZoom">CONTINUE</button>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="dotContainer">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+        </div>
+    </div>
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBbf0CnUSilg_mUnigFFDCkRaachYSUkE&callback=initMap">
+    </script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/map.js"></script>
+</body>
+
+</html>

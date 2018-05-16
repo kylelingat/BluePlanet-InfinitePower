@@ -1,0 +1,964 @@
+body {
+  overflow: hidden;
+  user-select: none;
+}
+
+.howToBox h2 {
+  font-size: 20px;
+}
+
+@media screen and (max-width: 1080) {
+  .navbar {
+    display: none;
+  }
+}
+
+
+#backing {
+  padding-bottom: 50px;
+}
+
+.navbar {
+  overflow: hidden;
+  background: linear-gradient(87deg, #0098a4, #0f9460, #1baa4d, #649b8b, #00d0ad, #0098a4);
+  opacity: 0.8;
+  position: fixed;
+  bottom: 0;
+  min-width: 100%;
+  max-width: 100%;
+  max-height: 63px;
+  text-align: center;
+}
+
+
+.infoBox h1 {
+  font-size: 15px;
+  text-align: left;
+  padding: 5px;
+  font-weight: bolder;
+}
+
+h1, h2, h3 {
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+  font-family: 'Raleway', cursive;
+  font-weight: bolder;
+  font-size: 30px;
+  text-align: center;
+}
+
+
+#mapBackground {
+  height: 100vh;
+  width: 100vw;
+}
+
+#notMap {
+  display: none;
+}
+
+
+#map {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  height: 65vh;
+  width: 65vw;
+}
+
+#gameTitle {
+  color: white;
+  display: inline-block;
+  padding: 14px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 30px;
+  cursor: pointer;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Raleway', serif;
+  letter-spacing: 5px;
+  font-weight: bolder;
+  text-align: center;
+
+ background: linear-gradient(to right, #FFF 20%, #FF0 40%, #FF0 60%, #FFF 80%);
+ background-size: 200% auto;
+
+ color: #000;
+ background-clip: text;
+ text-fill-color: transparent;
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+
+ animation: shine 4s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+}
+
+#gameTitle:hover {
+  animation: pulse infinite 1s;
+  cursor: pointer;
+}
+
+#randomFact {
+  display: inline-block;
+  font-family: 'Quicksand', serif;
+  font-weight: bolder;
+  font-size: 25px;
+  letter-spacing: 3px;
+
+}
+#randomFact:hover {
+  color: #97ca3d;
+}
+
+#startButton {
+  color: white;
+  float: left;
+  padding: 14px;
+  text-decoration: none;
+  font-size: 30px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Raleway', serif;
+  font-weight: bolder;
+}
+
+#startButton:hover, #pauseButton:hover, #resumeButton:hover {
+  color: #97ca3d;
+  cursor: pointer;
+}
+
+#pauseButton {
+  color: white;
+  float: left;
+  display: none;
+  padding: 14px;
+  text-decoration: none;
+  font-size: 30px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Raleway', serif;
+  font-weight: bolder;
+}
+
+#resumeButton {
+  color: white;
+  float: left;
+  display: none;
+  padding: 14px;
+  text-decoration: none;
+  font-size: 30px;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Raleway', serif;
+  font-weight: bolder;
+}
+
+#settingsInfoButton {
+  float: right;
+}
+#settingsButton, #informationButton {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px;
+  text-decoration: none;
+  font-size: 30px;
+  cursor: pointer;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: 'Raleway', serif;
+  font-weight: bolder;
+  letter-spacing: 4px;
+  border-left: 3px solid #97ca3d;
+}
+
+
+
+#settingsButton:hover, #informationButton:hover {
+  border-left: #97ca3d;
+  background: #97ca3d;
+  animation: pulse infinite 1s;
+  color: white;
+}
+
+#gamePaused {
+  display: none;
+  position: fixed; /*it can be fixed too*/
+  left:0; right:0;
+  top:-175px; bottom:0;
+  margin: auto;
+  width:50%;
+  height:20%;
+  opacity: 0.8;
+  color: white;
+  text-align: center;
+}
+
+#upgradeCongrats {
+  display: none;
+  position: fixed; /*it can be fixed too*/
+  left:0; right:0;
+  top:100px; bottom:0;
+  margin: auto;
+  letter-spacing: 5px;
+  width:50%;
+  height:20%;
+  opacity: 0.8;
+  color: white;
+  text-align: center;
+}
+
+#correctLevel1, #correctLevel2, #correctLevel3. #correctLevel4 {
+  transition: 2s;
+}
+
+
+
+#flexContainer {
+  left:0; right:0;
+  top:0; bottom:0;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 80%;
+}
+.blocks {
+  margin-left: 10px;
+  width: 33%;
+  height: 90%;
+
+}
+
+#middle {
+  position:fixed;
+  top: 25%;
+  left:50%;
+  bottom:0; margin:0;
+  border:none;
+}
+.vl {
+  border-right:solid 3px #97ca3d;
+  height: 500px;
+}
+#startZoom, .restart {
+  position:absolute;
+  bottom: -30px;
+  right: 20px;
+  width: 20%;
+  height: 10%;
+  color: white;
+  background: linear-gradient(208deg, #97ca3d, #0098a4);
+  background-size: 400% 400%;
+  outline: none;
+  border-radius: 20px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bolder;
+  font-size: 20px;
+  -webkit-animation: startZoomAnim 3s ease infinite;
+-moz-animation: startZoomAnim 3s ease infinite;
+animation: startZoomAnim 3s ease infinite;
+transition: 0.6s;
+}
+
+@-webkit-keyframes startZoomAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes startZoomAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes startZoomAnim {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+ #levelContinue, #upgradeContinue, #upgradeAndContinue{
+   position: fixed;
+   bottom: 10px;
+   right: 10px;
+   display: none;
+   width: 20%;
+   height: 10%;
+   color: white;
+   background-color: #97ca3d;
+   border: 4px solid #97ca3d;
+   border-radius: 20px;
+   font-family: 'Quicksand', sans-serif;
+   font-weight: bolder;
+   font-size: 20px;
+   animation: pulse infinite 1s;
+   outline: none;
+
+ }
+
+#startZoom:hover, .restart:hover, #levelContinue:hover, #upgradeContinue:hover,  #upgradeAndContinue:hover {
+  background: transparent;
+  cursor: pointer;
+  animation: pulse 1s infinite;
+}
+
+#settingsMenu{
+    display: none;
+    position: fixed; /*it can be fixed too*/
+    left:0; right:0;
+    top:0; bottom:0;
+    margin: auto;
+    width:50%;
+    height:50%;
+    opacity: 0.8;
+    color: white;
+    padding:20px;
+    text-align: center;
+}
+
+#credits {
+  display: none;
+  position: fixed; /*it can be fixed too*/
+  left:0; right:100px;
+  top:0; bottom:0;
+  margin: auto;
+  width:65%;
+  height:55%;
+  opacity: 0.8;
+  color: white;
+}
+
+#gamePaused h1 {
+  letter-spacing: 10px;
+  font-size: 80px;
+}
+#settingsMenu h1, #informationMenu h1, #credits h1 {
+  user-select: none;
+  letter-spacing: 5px;
+}
+
+#gamePaused h1:hover {
+  color: #97ca3d;
+}
+
+a.boxClose{
+    float:right;
+    cursor:pointer;
+    color: white;
+    position: absolute;
+    top: 5px;
+    right: -20px;
+    font-size: 31px;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 0px;
+    padding: 30px;
+}
+
+a.boxClose:hover {
+  color: #97ca3d;
+  animation: pulse infinite 1s;
+}
+
+.boxClose:before {
+    content: "×";
+    font-size: 100px;
+
+}
+
+#roundBarsContainer {
+}
+
+#roundsBox{
+  position: fixed; /*it can be fixed too*/
+  top: 5px;
+  right: 5px;
+  margin: auto;
+  width: 225px;
+  white-space: nowrap;
+  opacity: 0.8;
+  background: linear-gradient(35deg, #0098a4, #0f9460, #1baa4d, #649b8b, #00d0ad, #0098a4);
+  background-size: 600% 600%;
+  -webkit-animation: greenBarAnimation 2s ease infinite;
+-moz-animation: greenBarAnimation 2s ease infinite;
+animation: greenBarAnimation 2s ease infinite;
+  color: white;
+  padding:5px;
+  border:2px solid #ccc;
+  -moz-box-shadow: 0 1px 5px #333;
+  -webkit-box-shadow: 0 1px 5px #333;
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  font-family: 'Raleway', cursive;
+  font-weight: bolder;
+  font-size: 25px;
+  text-align: center;
+  color: white;
+  -moz-user-select: -moz-none;
+-khtml-user-select: none;
+-webkit-user-select: none;
+}
+
+#timer {
+  font-family: 'Raleway', cursive;
+  font-weight: bolder;
+  text-align: center;
+  padding: 20px;
+  color: white;
+}
+
+#timer:hover {
+  animation: pulse infinite 1s;
+}
+
+
+#renewableProgressBar, #nonRenewableProgressBar{
+    width: 125px;
+    height:350px;
+    position: fixed;
+    top: 0;
+    right: 125px;
+    margin-top: 135px;
+}
+
+#nonRenewableProgressBar{
+    right: -5px;
+}
+
+.barBackground{
+	width: 90%;
+	height: 680px;
+	/* float:left; */
+	/* margin:7px 5% 5px 5%; */
+	border:2px solid #ccc;
+	background-color: rgba(255,255,255,0.2);
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	border-radius: 57px;
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+}
+
+.barBackground .title{
+  font-family:"Quicksand", cursive;
+  font-weight: bolder;
+	color:white;
+	font-size: 16px;
+  font-weight:bold;
+	text-align:center;
+	padding:15px 0px 5px 0px;
+  white-space: nowrap;
+}
+
+.goodBarBackground {
+  border-color: #0098a4 #0f9460 #1baa4d #0098a4;
+}
+
+.badBarBackground {
+  border-color: #c23b22 #b05f50 #b05f50 #c23b22;
+}
+
+.title:hover {
+  animation: pulse infinite 1s;
+}
+
+#round:hover {
+  animation: pulse infinite 1s;
+}
+
+#renewable-bar, #nonRenewable-bar{
+  /* float:left; */
+  width: 75%;
+  /* margin: 0px 5% 0px 13%; */
+  margin-right:  auto;
+  margin-left:  auto;
+  height: 600px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 35px;
+}
+
+#renewableProgress, #nonRenewableProgress {
+  width: 84px;
+  float:left;
+  height: 0px;
+  /* max-height: 260px; */
+  position: absolute;
+  bottom: -312px;
+  z-index: 1;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border-radius: 35px;
+  transition: 0.5s;
+}
+
+#renewableProgress {
+  background: linear-gradient(35deg, #0098a4, #0f9460, #1baa4d, #649b8b, #00d0ad, #0098a4);
+  background-size: 600% 600%;
+  -webkit-animation: greenBarAnimation 2s ease infinite;
+-moz-animation: greenBarAnimation 2s ease infinite;
+animation: greenBarAnimation 2s ease infinite;
+}
+
+@-webkit-keyframes greenBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes greenBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes greenBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+#nonRenewableProgress {
+  background: linear-gradient(35deg, #c23b22, #b05f50, #bd8c83, #c15b48, #bd8c83, #b05f50, #c23b22);
+  background-size: 600% 600%;
+  -webkit-animation: redBarAnimation 3s ease infinite;
+  -moz-animation: redBarAnimation 3s ease infinite;
+  animation: redBarAnimation 3s ease infinite;
+}
+
+@-webkit-keyframes redBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes redBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes redBarAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.bar-2, .bar-3, .bar-4, .bar-5, .bar-6, .bar-7, .bar-8, .bar-9{
+	float:left;
+	width:100%;
+	background-color: black;
+	height: 1px;
+  margin-top: 5px;
+}
+
+.bar-1{
+	margin-bottom:14px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+}
+
+.bar-2{
+	margin-bottom:15px;
+}
+
+.bar-3{
+	margin-bottom:16px;
+}
+
+.bar-4{
+	margin-bottom:17px;
+}
+
+.bar-5{
+	margin-bottom:18px;
+}
+
+.bar-6{
+	margin-bottom:19px;
+}
+
+.bar-7{
+	margin-bottom:20px;
+}
+
+.bar-8{
+	margin-bottom:24px;
+}
+
+.bar-9{
+	margin-bottom:22px;
+}
+
+.attendance-level{
+	width: 101px;
+	z-index: 9999;
+	position: absolute;
+	top:60px;
+}
+
+#changeatt, #changeatt:hover {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    cursor: pointer;
+    color: red;
+}
+
+
+#beforeStart {
+  position: absolute; /*it can be fixed too*/
+  left:0; right:0;
+  display: block;
+  top:0; bottom:0;
+  margin: auto;
+  width: 85%;
+  height: 85%;
+  opacity: 0.95;
+  color: white;
+  padding:20px;
+  animation-duration: 0.7s;
+}
+
+#informationMenu {
+  position: absolute; /*it can be fixed too*/
+  left:0; right:100px;
+  top:-20px; bottom:0;
+  margin: auto;
+  width: 65%;
+  height: 80%;
+  opacity: 0.95;
+  display: none;
+  color: white;
+  padding:20px;
+}
+
+.slideTitle {
+  font-family: 'Raleway', cursive;
+  font-weight: bolder;
+  font-size: 30px;
+  text-align: center;
+  padding: 20px;
+  color: white;
+  margin-top: -100px;
+  background: linear-gradient(to right, #FFF 20%, #FF0 40%, #FF0 60%, #FFF 80%);
+  background-size: 200% auto;
+
+  color: #000;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: shine 2s linear infinite;
+}
+
+
+.mySlides1, .mySlides2 {
+    display: none;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 60px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.prev:hover, .next:hover {
+  background-color: #97ca3d;
+  animation: pulse infinite 1s;
+}
+
+.dotContainer {
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  right: 50%;
+  transform: rotate(270deg);
+}
+
+.numbertext {
+  font-family: 'Raleway', cursive;
+  font-weight: bolder;
+  font-size: 30px;
+  padding: 20px;
+  text-align: left;
+  color: white;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
+}
+
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.dot2 {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  bottom: 0;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover, .dot2:hover {
+  background-color: #97ca3d;
+  animation: pulse infinite 1s;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+#youPassed, #youFailed {
+  vertical-align: middle;
+  display: block;
+  letter-spacing: 15px;
+}
+
+.upgradeText {
+  letter-spacing: 10px;
+}
+
+#welcomeContainer {
+  width: 65%;
+  height: 550px;
+  position: fixed; /*it can be fixed too*/
+  left:0; right:0;
+  top:100px; bottom:0;
+  margin: auto;
+  letter-spacing: 5px;
+}
+
+.titleHeader {
+  font-size: 45px;
+}
+
+#beforeStart h2 {
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+ #bpimg {
+  width: 60%;
+  height: 15%;
+  position: fixed; /*it can be fixed too*/
+  left:0; right:0;
+  top:400px; bottom:0;
+  margin: auto;
+  margin: auto;
+  cursor: pointer;
+}
+
+#bpimg:hover {
+  animation: pulse infinite 1s;
+}
+
+.bold { color: #97ca3d;}
+
+.redText {color: #c23b22; font-weight: bolder;}
+
+.statContainer {
+  width: 100%;
+	height: 100%;
+	overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.statGrid {
+  width: 89%;
+column-count: 3;
+column-gap: 0px;
+padding-bottom: 66px;
+margin: 0 auto;
+padding-top: 1px;
+}
+
+
+.infoOverflow {
+  margin: auto;
+  width: 90%;
+  max-width: 1000px;
+  max-height: 575px;
+  overflow-y: auto;
+}
+.infoGrid {
+  width: 96%;
+  column-count: 3;
+  column-gap: 0px;
+  padding-bottom: 66px;
+  margin: 0 auto;
+  padding-top: 1px;
+}
+
+.infoContainer {
+  width: 100%;
+	height: 100%;
+}
+
+.infoBox {
+  width: 92%;
+	display: inline-block;
+  color: rgb(0, 152, 164);
+  font-family: 'Raleway';
+  text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 5px 5px;
+	border-radius: 10px;
+  background-color: white;
+  transition: 0.3s;
+}
+
+#upgradeCongrats h2 {
+  font-family: 'Raleway';
+  color: #97ca3d;
+}
+
+.statBox {
+  width: 92%;
+	display: inline-block;
+  color: rgb(0, 152, 164);
+  font-family: 'Raleway';
+  text-align: center;
+	padding-left: 5px;
+	padding-right: 5px;
+	margin: 5px 5px;
+	border-radius: 10px;
+  background-color: white;
+}
+
+.howToGrid {
+  margin: auto;
+  width: 80%;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  letter-spacing: 5px;
+}
+
+.howToBox {
+  color: rgb(0, 152, 164);
+  font-family: 'Raleway';
+  text-align: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 5px 5px;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.9);
+  transition: 0.3s;
+}
+
+.howToBox:hover {
+  padding: 5px;
+}
+
+.statBox h1 {
+  font-size: 25px;
+}
+
+.statBox h2{
+  font-size: 30px;
+}
+
+.statBox h3{
+  font-size: 15px;
+}
+
+
+#infiniteStatistics {
+  display: none;
+}
+
+.pauseOrResume {
+  transition: 0.3s;
+}
+.pauseOrResume:after {
+  content: 'GAME PAUSED';
+}
+.pauseOrResume:hover:after {
+  content: 'RESUME GAME';
+  cursor: pointer;
+}
+
+.gradient-border {
+}
+
+.energyPercent {
+  color: #000;
+}
